@@ -6,8 +6,8 @@ clc;
 
 %Choose gridsize and residual size and omega
 h = 0.04;
-max_res = 0.00000005;
-omega = 1.9;
+max_res = 0.01;
+omega = 1;
 
 %Choose the border functions
 fi1 = @(x) x^2 + x + 3;
@@ -16,7 +16,7 @@ fi3 = @(x) x^2 + x + 1;
 fi4 = @(y) y^2 + y + 1;
 
 %Choose forcing term and the actual function to compare
-g = @(x,y) 4;
+g = @(x,y) 0;
 u = @(x,y) x^2 + y^2 + x + y + 1;
 
 %Setting up
@@ -70,7 +70,7 @@ end
 U = X.^2 + Y.^2 + X + Y + 1;
 
 %Plot estimation and actual values
-%mesh(x,y,z); hold on; mesh(X,Y,U);
+%mesh(x,y,z'); hold on; mesh(X,Y,U);
 
 %Plot error
-er = z - U; mesh(X,Y,er);
+er = z' - U; mesh(X,Y,er);

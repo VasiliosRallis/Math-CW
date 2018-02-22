@@ -2,21 +2,20 @@ close all;
 clear;
 clc;
 
-%I think there is a bug in this one as it doens't converge 
-
 %Choose gridsize and residual size
-h = 0.05;
-max_res = 0.001;
+h = 0.02;
+max_res = 0.01;
 
 %Choose the border functions
-fi1 = @(x) x^2 +2*x +2;
-fi2 = @(y) 3*y + 2;
-fi3 = @(x) x^2 + 1;
-fi4 = @(y) y + 1;
+fi1 = @(x) x + 1;
+fi2 = @(y) y + 1;
+fi3 = @(x) x;
+fi4 = @(y) y;
+
 
 %Choose forcing term and the actual function to compare
-g = @(x,y) 2;
-u = @(x,y) x^2 + y + 2*x*y +1;
+g = @(x,y) 0;
+u = @(x,y) x + y;
 
 %Setting up
 x(1) = 0;
@@ -41,12 +40,17 @@ end
 total = 4*(n + 1) - 4;
 avg = sum/total;
 
+
 %Set all the inner points as this average value
 for i = 2:length(x) - 1
     for j = 2:length(y) - 1
             z(i,j) = avg;
     end
 end
+
+mesh(x,y,z);
+xlabel('x-axis');
+ylabel('y-axis');
 
 while (true)
     r_max = 0;
@@ -66,10 +70,12 @@ end
 
 %Calculating the actual values 
 [X, Y] = meshgrid(0:h:n*h);
-U = X.^2 + Y + 2*X.*Y + 1;
+U = X + Y;
 
 %Plot estimation and actual values
 %mesh(x,y,z); hold on; mesh(X,Y,U);
 
 %Plot error
-er = z - U; mesh(X,Y,er);
+er = z' - U; mesh(X,Y,er);
+xlabel('x-axis');
+ylabel('y-axis');

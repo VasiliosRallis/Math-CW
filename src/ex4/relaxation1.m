@@ -3,14 +3,14 @@ clear;
 clc;
 
 %Choose gridsize and residual size
-h = 0.01;
-max_res = 0.1;
+h = 0.2;
+max_res = 0.0001;
 
 %Choose the border functions
-fi1 = @(x) sin(2*pi*10*x);
-fi2 = @(y) cos(2*pi*10*y);
-fi3 = @(x) sin(2*pi*10*x);
-fi4 = @(y) 0;
+fi1 = @(x) 1;
+fi2 = @(y) 1;
+fi3 = @(x) 1;
+fi4 = @(y) 1;
 
 %Setting up
 x(1) = 0;
@@ -58,4 +58,4 @@ while (true)
     end
 end
 
-mesh(x,y,z);
+mesh(x,y,z');
