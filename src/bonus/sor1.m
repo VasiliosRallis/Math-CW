@@ -5,9 +5,9 @@ clc;
 %The example quadratic x and y was chose
 
 %Choose gridsize and residual size and omega
-h = 0.04;
+h = 0.02;
 max_res = 0.01;
-omega = 1;
+omega = 1.79;
 
 %Choose the border functions
 fi1 = @(x) x^2 + x + 3;

@@ -4,7 +4,7 @@ clc;
 
 %Choose gridsize and residual size
 h = 0.02;
-max_res = 0.01;
+max_res = 0.001;
 
 %Choose the border functions
 fi1 = @(x) x + 1;

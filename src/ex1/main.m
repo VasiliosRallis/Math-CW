@@ -1,13 +1,19 @@
+%Clean up
+close all;
 clear;
 clc;
 
-dy = @(x,y) 2.5/1000 - 1/(100*10^(-9)*1000)*y;
+my_max_error = zeros(1,10);
+my_h = zeros(1,10);
+for i = 1:10
+    h = 1e-5/(5*i);
+    error_script
+    max_error = max(error);
+    my_max_error(i) = max_error;
+    my_h(i) = h;
+end
 
-x0 = 0;
-y0 = 500*10^(-9);
-h = 0.00000001;
-xf = 0.001;
+p = polyfit(my_h, my_max_error, 1);
 
-[x,ye] = RK2(dy,x0,y0,h,xf);
 
-plot(x, ye);
+plot(log(my_h), log(my_max_error));
