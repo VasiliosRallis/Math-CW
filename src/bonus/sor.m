@@ -4,7 +4,8 @@ clc;
 
 %Choose gridsize and residual size
 h = 0.02;
-max_res = 1e-6;
+max_res = 1e-4;
+omega = 1.99;
 
 %Choose the border functions
 fi1 = @(x) -2*x^2 + 3*x + 2;
@@ -49,6 +50,7 @@ for i = 2:length(x) - 1
     end
 end
 
+iteration = 0;
 while (true)
     %set the maximum residue found in this iteration to 0
     %it will be updated in the for loop
@@ -58,7 +60,7 @@ while (true)
             %Calculate the residue
             r = (z(i+1,j) + z(i-1,j) + z(i,j+1) + z(i,j-1) - h^2*g(x(i),y(j)) - 4*z(i,j))/4;
             %Set the new value of the point
-            z(i,j) = z(i,j) + r;
+            z(i,j) = z(i,j) + omega*r;
             if(abs(r) > r_max)
                 r_max = abs(r);
             end
@@ -69,6 +71,7 @@ while (true)
     if(r_max < max_res)
         break;
     end
+    iteration = iteration + 1;
 end
 
 %It is important not to forget to transpose because of the way matlab
@@ -81,4 +84,4 @@ er = abs(z' - U); mesh(X,Y,er);
 xlabel('x-axis');
 ylabel('y-axis');
 zlabel('z-axis');
-title('Error of solution to the Poison Equation');
+title('Error of solution to Poison equation with SOR');
