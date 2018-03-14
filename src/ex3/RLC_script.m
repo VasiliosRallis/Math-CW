@@ -3,10 +3,10 @@ clear;
 clc;
 
 %Forcing term
-%Vin = @(t) 5;
-%Vin = @(t) 5*exp(-(t^2)/3);
-Vin = @(t) 5*square(5*2*pi*t); %needs another add-on
-%Vin = @(t) sin(2*pi*5*t);
+Vin = @(t) 5;
+%Vin = @(t) 5.*exp(-(t.^2)./0.000003);
+%Vin = @(t) 5*square(500*2*pi*t); %needs another add-on
+%Vin = @(t) sin(500*2*pi*t);
 
 %Initial conditions
 x1(1) = 500*10^-9;
@@ -34,5 +34,9 @@ t = t(1) : h : N*h;
 Vout = R*x2;
 plot(t, Vout, 'r');
 hold on;
-fplot(Vin);
-xlim([0,0.4]);
+fplot(Vin,'--');
+xlabel('time (s)');
+ylabel('Vout (V)');
+xlim([0,0.05]);
+ylim([-2,6]);
+legend('Vout','Vin')
