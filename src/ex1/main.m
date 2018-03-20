@@ -1,19 +1,23 @@
 %Clean up
-close all;
-clear;
-clc;
+%close all;
+%clear;
+%clc;
 
-my_max_error = zeros(1,10);
-my_h = zeros(1,10);
-for i = 1:10
-    h = 1e-5/(5*i);
+my_max_error_r = zeros(1,20);
+my_h = zeros(1,20);
+for i = 1:20
+    h = 1e-4/(5*i);
     error_script
     max_error = max(error);
-    my_max_error(i) = max_error;
+    my_max_error_r(i) = max_error;
     my_h(i) = h;
 end
 
-p = polyfit(my_h, my_max_error, 1);
+p_r = polyfit(log(my_h), log(my_max_error_r), 1);
 
-
-plot(log(my_h), log(my_max_error));
+plot(log(my_h), log(my_max_error_r), 'bs');
+hold on;
+xlabel('Log(h)');
+ylabel('Log(Max Error)');
+title('Global Error vs Step Size');
+legend('Heun', 'Midpoint', 'Ralston');

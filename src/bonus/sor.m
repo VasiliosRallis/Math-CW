@@ -5,7 +5,7 @@ clc;
 %Choose gridsize and residual size
 h = 0.02;
 max_res = 1e-4;
-omega = 1.99;
+omega = 1.92;
 
 %Choose the border functions
 fi1 = @(x) -2*x^2 + 3*x + 2;
@@ -60,7 +60,7 @@ while (true)
             %Calculate the residue
             r = (z(i+1,j) + z(i-1,j) + z(i,j+1) + z(i,j-1) - h^2*g(x(i),y(j)) - 4*z(i,j))/4;
             %Set the new value of the point
-            z(i,j) = z(i,j) + omega*r;
+            z(i,j) = omega*(z(i+1,j) + z(i-1,j) + z(i,j+1) + z(i,j-1) - h^2*g(x(i),y(j)))/4 + (1 - omega)*z(i,j);
             if(abs(r) > r_max)
                 r_max = abs(r);
             end

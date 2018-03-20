@@ -13,13 +13,13 @@ xf = 1e-3;
 R = 1e+3;
 C = 100e-9;
 W = 2*pi*10^4;
+
+%Create some contants so that the equation is easier to write
 B = (5*C)/((W*R*C)^2 + 1);
 A = y0 - B;
 
-
-%Choose Vin
-Vin = @(x) 5*cos(1e+4*2*pi*x);
-%Vout =@(x) 10e-6*exp(1e-4*x) + (2*pi*sin(2*pi*1e+4*x) + cos(2*pi*1e+4*x))/((1 + 4*pi^2)*1e+6);
+%Choose Vin and Vout
+Vin = @(x) 5*cos(W*x);
 Vout =@(x) B*(cos(W*x) + W*R*C*sin(W*x)) + A*exp(-x/(R*C));
 
 dy = @(x,y) Vin(x)/R - y/(C*R);
@@ -30,11 +30,10 @@ dy = @(x,y) Vin(x)/R - y/(C*R);
 %Generate the arrays for Vin(t) and Vout(t)
 y_real = arrayfun(@(x) Vout(x), x);
 
-error = abs(y_real - y_estimation);
+error = y_real - y_estimation;
 
 %Plot Vin(t) and Vout(t)
-%plot(x, error, 'r');
-%hold on;
-%plot(x, y_real, 'b');
+%plot(x, error);
+%title('Error with Ralston method');
 %xlabel('Time(s)');
-%ylabel('Voltage(V) Vin(t) in blue/Vout(t) in red');
+%ylabel('Error of Charge(C)');

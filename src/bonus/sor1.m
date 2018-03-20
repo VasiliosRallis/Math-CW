@@ -54,7 +54,7 @@ while (true)
     for i = 2:length(x) - 1
         for j = 2:length(y) -1
             r = omega*(z(i+1,j) + z(i-1,j) + z(i,j+1) + z(i,j-1) - 4*z(i,j) - (h^2)*g(x(i),y(j)))/4;
-            z(i,j) = z(i,j) + r;
+            z(i,j) = (1-omega)*z(i,j) + r;
             if(abs(r) > r_max)
                 r_max = abs(r);
             end
