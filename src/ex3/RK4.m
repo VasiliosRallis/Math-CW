@@ -1,18 +1,13 @@
 function [x1, x2] = RK4(dx1, dx2, x1_0, x2_0, h, t0,  tf)
-    
     x1(1) = x1_0;
     x2(1) = x2_0;
-    
     N = round((tf - t0) / h); %nr of steps: (interval size)/(step size)
     t = t0 : h : N*h;
-    
     %Setting up fourth order RK
     a1 = 1/6;
     a2 = 1/3;
     a3 = 1/3;
     a4 = 1/6;
-    
-    
     %Inefficient solution
     %{
     k1 = @(t, x1, x2) dx1(t, x1, x2);
